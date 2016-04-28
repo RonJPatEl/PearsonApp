@@ -1,7 +1,8 @@
-CreatePearson <- function(rho=0.6) {
+# maak functie die random gecorreleerde data genereert en de correlatie opslaat
+CreatePearson <- function(N = 1000, rho=0.6) {
     x <- matrix(c(1, rho,
                   rho, 1), nrow=2, ncol=2, byrow=T)
-    nobs = 1000
+    nobs = N
     nvars = 2
     
     L <- chol(x)
@@ -12,10 +13,13 @@ CreatePearson <- function(rho=0.6) {
     cor(rdata$x, rdata$y)
     }
 
-SamplePearson <- function(reps=1000, rho=0.6){
-  sapply(1:reps, function(reps){CreatePearson(rho)})
+# maak functie herhaaldelijk gegenereerde correlaties samenvoegt in een datatabel
+SamplePearson <- function(reps=1000, N =1000, rho=0.6){
+  sapply(1:reps, function(reps){CreatePearson(N, rho)})
 }
 
+# maak functie die een voorbeeld dataset maakt, zoals bij CreatePearson, 
+# maar dan als voorbereiding op de scatterplot
 MeanPearsonData <- function(rho=0.6, N = 1000) {
   x <- matrix(c(1, rho,
                 rho, 1), nrow=2, ncol=2, byrow=T)
