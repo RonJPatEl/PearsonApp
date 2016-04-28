@@ -23,10 +23,10 @@ shinyUI(fluidPage(
                    max = .99,
                    value = .60),
       sliderInput("N",
-                  "Aantal correlaties:",
-                  min = 100,
+                  "Steekproefgrootte:",
+                  min = 10,
                   max = 1000,
-                  value = 1000)
+                  value = 500)
     ),
     
     # Show a plot of the generated distribution

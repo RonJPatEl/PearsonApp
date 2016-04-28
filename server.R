@@ -16,18 +16,20 @@ source("Functions.R")
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
+  # plot steekproevenverdeling pearson correlaties
   output$distPlot <- renderPlot({
     # maak een tabel vol pearson correlaties
-    M <- SamplePearson(reps = input$N, rho = input$pears)
+    M <- SamplePearson(reps = 1000, N=input$N, rho = input$pears)
     # teken histogram met steekproevenverdeling van rho
     hist(M, col = 'darkgray', border = 'white', breaks=20, xlim=c(-1,1), prob=T)
     lines(density(M), col='blue', lwd=2)
   })
   
+  # plot scatterplot
   output$Scatter <- renderPlot({
     
     # teken scatterplot met gemiddelde pearson uit alle pearsons
-    plot(MeanPearsonData(rho=input$pears, N=500))
+    plot(MeanPearsonData(rho=input$pears, N=input$N))
   })
   
 })
