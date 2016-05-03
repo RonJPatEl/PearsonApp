@@ -1,4 +1,3 @@
-#
 # Shiny app voor steekproevenverdeling pearson correlatie
 # 
 #
@@ -66,3 +65,4 @@ shinyServer(function(input, output) {
       #placeholder om de steekproefcounter te testen
       output$count <- renderUI({paste0("counter = ", values$i)})
 })
+
