@@ -33,7 +33,8 @@ shinyServer(function(input, output) {
                offset=0.3, 
                cex=1, 
                xlim=c(-1,1), 
-               ylim=c(0,100))
+               ylim=c(0,100),
+               main=paste("verdeling van", values$i, "correlatie(s) bij rho =", input$pears))
     #lines(density(M), col='blue', lwd=2)
     
   })
@@ -42,7 +43,8 @@ shinyServer(function(input, output) {
   output$Scatter <- renderPlot({
     
     # teken scatterplot met gemiddelde pearson uit alle pearsons
-    plot(MeanPearsonData(rho=M()[values$i], N=input$N))
+    plot(MeanPearsonData(rho=M()[values$i], N=input$N),
+         main = paste("scatterplot van steekproef", values$i, " r =", round(M()[values$i], digits = 2), "N =", input$N ))
   })
   
   # tijdelijke print van de valuecounter van de steekproefgenerator
