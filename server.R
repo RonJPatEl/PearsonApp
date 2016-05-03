@@ -33,10 +33,6 @@ shinyServer(function(input, output) {
                xlim=c(-1,1), 
                ylim=c(0,100))
     #lines(density(M), col='blue', lwd=2)
-    
-    #hist(M, col = 'darkgray', border = 'white', breaks=20, xlim=c(-1,1), prob=T)
-    stripchart(round(M, digits=2), method="stack", pch=1, offset=0.8, cex=1, xlim=c(-1,1), ylim=c(0,100))
-    #lines(density(M), col='blue', lwd=2)
   })
   
   # plot scatterplot
