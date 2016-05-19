@@ -8,6 +8,7 @@
 
 
 library(shiny)
+library(ggplot2)
 
 # laad de functies in
 source("Functions.R")
@@ -22,31 +23,31 @@ shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
     # maak een tabel vol pearson correlaties
     #M <- SamplePearson(reps = 1000, N=input$N, rho = input$pears)
-    
-    # teken histogram met steekproevenverdeling van rho
-    #hist(M, col = 'darkgray', breaks=20, border = 'white', xlim=c(-1,1), prob=F)
     stripchart(round(M()[1:values$i], digits=2), 
-               col='darkgray',
-               method="stack", 
-               pch=16, 
-               offset=0.3, 
-               cex=1, 
-               xlim=c(-1,1), 
-               ylim=c(0,100),
-               main=paste("verdeling van", values$i, "correlatie(s) bij rho =", input$pears))
-    #lines(density(M), col='blue', lwd=2)
-    
+           #col='darkblue',
+           bg='black',
+           method="stack", 
+           pch=22, 
+           offset=0.3, 
+           cex=1, 
+           xlim=c(-1,1), 
+           ylim=c(1,10000),
+           main=paste("verdeling van", values$i, "correlatie(s) bij rho =", input$pears))
   })
   
   # plot scatterplot
   output$Scatter <- renderPlot({
     
     # teken scatterplot met gemiddelde pearson uit alle pearsons
-    plot(MeanPearsonData(rho=M()[values$i], N=input$N),
-         main = paste("scatterplot van steekproef", values$i, " r =", round(M()[values$i], digits = 2), "N =", input$N ))
+#    plot(MeanPearsonData(rho=M()[values$i], N=input$N),
+#         main = paste("scatterplot van steekproef", values$i, " r =", round(M()[values$i], digits = 2), "N =", input$N ))
+     ggplot(MeanPearsonData(rho=M()[values$i], N=input$N), aes(x=x,y=y)) + 
+      geom_point() + 
+      geom_smooth(method='lm') + 
+      ggtitle(paste("scatterplot van steekproef", values$i, " r =", round(M()[values$i], digits = 2), "N =", input$N )) +
+      theme_bw()
   })
   
-  # tijdelijke print van de valuecounter van de steekproefgenerator
   # maak counter
       values <- reactiveValues(i = 1) # holder van counter value
       #observer runt iedere keer als knop gedrukt wordt, en telt 1 op bij counter:
